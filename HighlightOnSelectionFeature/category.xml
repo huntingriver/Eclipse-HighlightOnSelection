@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/HighlightOnSelectionFeature_1.0.0.qualifier.jar" id="HighlightOnSelectionFeature" version="1.0.0.qualifier">
+      <category name="HighlightOnSelection"/>
+   </feature>
+   <category-def name="HighlightOnSelection" label="HighlightOnSelection">
+      <description>
+         Simple UltraEdit style highlight match text on selection.
+      </description>
+   </category-def>
+</site>

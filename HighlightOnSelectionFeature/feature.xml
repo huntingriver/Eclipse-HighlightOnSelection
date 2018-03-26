@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="HighlightOnSelectionFeature"
+      label="HighlightOnSelectionFeature"
+      version="1.0.0.qualifier"
+      license-feature="org.eclipse.buildship"
+      license-feature-version="2.2.1.v20180125-1441">
+
+   <description url="http://www.example.com/description">
+      Simple UltraEdit style highlight on selection feature.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="HighlightOnSelection"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

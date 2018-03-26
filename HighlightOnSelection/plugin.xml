@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.startup">
+      <startup class="com.nexiwave.tools.eclipse.highlightonselection.Startup"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.nexiwave.tools.eclipse.highlightonselection.preferences.PreferencePage"
+            id="highlightonselection.preferences.HighlightOnSelectionPreferencePage"
+            name="Highlight On Selection Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.nexiwave.tools.eclipse.highlightonselection.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         id="HighlightOnSelection"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            name="HighlightOnSelection">
+      </product>
+   </extension>
+
+</plugin>
