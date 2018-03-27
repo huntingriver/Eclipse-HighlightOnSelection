@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -71,6 +72,11 @@ public class PreferencePage
 					PreferenceConstants.P_KEEP_HIGHLIGHTS,
 					"Keep Highlights",
 					getFieldEditorParent()));
+		addField(
+				new IntegerFieldEditor(
+					PreferenceConstants.P_MAX_SIZE_IN_MB,
+					"Max File Size (in MB, 0 for unlimited)",
+					getFieldEditorParent(), 4));
 		addField(
 				new ColorFieldEditor(
 					PreferenceConstants.P_BACKGROUND_COLOR,

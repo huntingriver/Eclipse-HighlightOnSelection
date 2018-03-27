@@ -30,6 +30,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(PreferenceConstants.P_BACKGROUND_COLOR, "115,210,22");
 		
+		store.setDefault(PreferenceConstants.P_MAX_SIZE_IN_MB, 3);
+		
 		store.setDefault(PreferenceConstants.getConfigForExt("*"), true);
 		store.setDefault(PreferenceConstants.getConfigForExt("txt"), true);
 		for (IFileEditorMapping m : getAttachableContentTypes()) {

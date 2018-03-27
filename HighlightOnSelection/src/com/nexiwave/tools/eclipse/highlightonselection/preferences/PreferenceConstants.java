@@ -16,6 +16,8 @@ public class PreferenceConstants {
 
 	public static final String P_BACKGROUND_COLOR = "BACKGROUND_COLOR";
 	
+	public static final String P_MAX_SIZE_IN_MB = "MAX_SIZE_IN_MB";
+	
 	private static final String P_ENABLED_FOR_EDITOR = "ENABLED_FOR_EDITOR";
 	
 	public static final String getConfigForExt(String ext) {
