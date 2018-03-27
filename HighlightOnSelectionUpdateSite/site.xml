@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="HighlightOnSelection" url="file:/home/bjiang/workspace2/export2">
+      Update site for HighlightOnSelection
+   </description>
+   <feature url="features/HighlightOnSelectionFeature_1.0.0.qualifier.jar" id="HighlightOnSelectionFeature" version="1.0.0.qualifier">
+      <category name="HighlightOnSelection"/>
+   </feature>
+   <category-def name="HighlightOnSelection" label="HighlightOnSelection">
+      <description>
+         Simple UltraEdit style highlight on selection for eclipse.
+      </description>
+   </category-def>
+</site>

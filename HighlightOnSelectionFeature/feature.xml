@@ -2,21 +2,25 @@
 <feature
       id="HighlightOnSelectionFeature"
       label="HighlightOnSelectionFeature"
-      version="1.0.0.qualifier"
-      license-feature="org.eclipse.buildship"
-      license-feature-version="2.2.1.v20180125-1441">
+      version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
-      Simple UltraEdit style highlight on selection feature.
+      Simple UltraEdit style highlight on selection feature for eclipse.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright>
+      HighlightOnSelection is released under EPL and free for any kind of use. The developer does not assume any respondibility of the usage or outcome from this tool.
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license url="">
+      HighlightOnSelection is released under EPL and free for any kind
+of use. The developer does not assume any respondibility of the
+usage or outcome from this tool.
    </license>
+
+   <url>
+      <discovery label="Update site" url="https://nexiwave.com/random-files/eclipse-highlight-on-selection"/>
+   </url>
 
    <plugin
          id="HighlightOnSelection"

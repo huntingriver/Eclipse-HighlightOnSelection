@@ -25,6 +25,10 @@
       <product
             application="org.eclipse.ui.ide.workbench"
             name="HighlightOnSelection">
+         <property
+               name="appName"
+               value="HighlightOnSelection">
+         </property>
       </product>
    </extension>
 

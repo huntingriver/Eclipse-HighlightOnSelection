@@ -1,5 +1,7 @@
 package com.nexiwave.tools.eclipse.highlightonselection;
 
+import java.util.Date;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -19,6 +21,8 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
+	
+	private static boolean debug = "true".equals(System.getProperty("HighlightOnSelection.debug"));
 
 	private TextSelectionListener selectionListener;
 
@@ -29,6 +33,7 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	private void injectListener() {
+		log("Installing the plugin...", true);
 		if (selectionListener == null)
 			selectionListener = new TextSelectionListener();
 
@@ -107,4 +112,16 @@ public class Activator extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
+
+	public static void log(String msg) {
+		log(msg, false);
+	}
+
+	public static void log(String msg, boolean force) {
+		if (force || debug) {
+//			getDefault().getLog().log(status);
+			System.err.println(new Date() + ": HighlightOnSelection: " + msg);
+		}
+	}
+
 }

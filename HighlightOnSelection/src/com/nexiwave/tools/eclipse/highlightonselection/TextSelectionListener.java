@@ -12,7 +12,6 @@ import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.ITextViewer;
-import org.eclipse.jface.text.ITextViewerExtension5;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -51,14 +50,18 @@ public class TextSelectionListener implements ISelectionListener {
 	}
 
 	public void selectionChanged(IWorkbenchPart sourcepart, ISelection selection) {
-		
-		if (!(sourcepart instanceof IEditorPart)) 
+		log("Selection changed");
+		if (!(sourcepart instanceof IEditorPart)) {
+			log("Caller is not an editor. Caller=|" + sourcepart + "|");
 			return;
+		}
 		
 		IEditorPart editor = (IEditorPart)sourcepart;
 		ITextViewer viewer = (ITextViewer) sourcepart.getAdapter(ITextOperationTarget.class);
-		if (viewer == null)
+		if (viewer == null) {
+			log("No viewer found from caller. Caller=|" + sourcepart + "|");
 			return;
+		}
 		
 		if (selection instanceof ITextSelection) {
 			
@@ -69,6 +72,9 @@ public class TextSelectionListener implements ISelectionListener {
 				IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 				if (!store.getBoolean(PreferenceConstants.P_KEEP_HIGHLIGHTS)) {
 					clear(viewer);
+				}
+				else {
+					log("Keeping highlights");
 				}
 			}
 			else {
@@ -83,6 +89,8 @@ public class TextSelectionListener implements ISelectionListener {
 		if ((text == null) || text.isDisposed()) { return; }
 		
 		if (viewersWithStyleChange.contains(viewer)) {
+			log("Clear view for : |" + viewer + "|");
+
 			viewer.invalidateTextPresentation();
 			viewersWithStyleChange.remove(viewer);
 		}
@@ -91,6 +99,7 @@ public class TextSelectionListener implements ISelectionListener {
 	private void highlight(IEditorPart editor, ITextViewer viewer, String s) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		if (!store.getBoolean(PreferenceConstants.P_ENABLE)) {
+			log("Highlight is not enabled");
 			return;
 		}
 		IFileEditorInput ife = (IFileEditorInput)editor.getEditorInput().getAdapter(IFileEditorInput.class);
@@ -102,6 +111,7 @@ public class TextSelectionListener implements ISelectionListener {
 			config = PreferenceConstants.getConfigForExt("*");
 		}
 		if (!store.getBoolean(config)) {
+			log("Highlight is not enabled for ext " + config);
 			return;
 		}
 		
@@ -110,15 +120,18 @@ public class TextSelectionListener implements ISelectionListener {
 		
 		clear(viewer);
 		
-		boolean caseSensitive = false;
-		boolean wordsOnly = true;
+		if (s.contains("\n"))
+			return;
+		
+		log("Highlighting these text: |" + s + "|");
 		
 		s = "(" + Pattern.quote(s) + ")";
-		if (wordsOnly) {
+		if (store.getBoolean(PreferenceConstants.P_WORDS_ONLY)) {
 			s = "\\b" + s + "\\b";
 		}
-		if (!caseSensitive)
+		if (!store.getBoolean(PreferenceConstants.P_CASE_SENSITIVE)) {
 			s = "(?i)" + s;
+		}
 		
 		Pattern p = Pattern.compile(s);
 		
@@ -129,19 +142,25 @@ public class TextSelectionListener implements ISelectionListener {
 			IRegion region = new Region(m.start(1), m.end(1) - m.start(1));
 			
 			// highlight region
-		    int offset = 0;
-		    int length = 0;
-			if (viewer instanceof ITextViewerExtension5) {
-				ITextViewerExtension5 extension = (ITextViewerExtension5) viewer;
-		        IRegion widgetRange = extension.modelRange2WidgetRange(region);
-		        if (widgetRange == null) { return; }
-		        offset = widgetRange.getOffset();
-		        length = widgetRange.getLength();
-			} else
-		    {
-		        offset = region.getOffset() - viewer.getVisibleRegion().getOffset();
-		        length = region.getLength();
-		    }
+//		    int offset = -1;
+//		    int length = 0;
+//		    
+//			if (viewer instanceof ITextViewerExtension5) {
+//				ITextViewerExtension5 extension = (ITextViewerExtension5) viewer;
+//		        IRegion widgetRange = extension.modelRange2WidgetRange(region);
+//		        if (widgetRange != null) { 
+//			        offset = widgetRange.getOffset();
+//			        length = widgetRange.getLength();
+//		        }
+//		        else
+//		        	continue;
+//			} 
+//			if (offset < 0) {
+//		        offset = region.getOffset() - viewer.getVisibleRegion().getOffset();
+//		        length = region.getLength();
+//		    }
+			int offset = region.getOffset();
+	        int length = region.getLength();
 			
 			TreeSet<StyleRange> newStyleRanges = new TreeSet<StyleRange>(new Comparator<StyleRange>() {
 
@@ -208,5 +227,9 @@ public class TextSelectionListener implements ISelectionListener {
 			bColor = new Color(Display.getCurrent(), PreferenceConverter.getColor(store, PreferenceConstants.P_BACKGROUND_COLOR));
 		}
 		return bColor;
+	}
+	
+	private static void log(String msg) {
+		Activator.log(msg);
 	}
 }
